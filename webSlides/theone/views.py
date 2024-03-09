@@ -4,7 +4,7 @@ from django.template import Template, Context
 # Create your views here.
 
 def home(request):
-    return HttpResponse("<h1>HOLA</h1>")
+    return render(request, 'users/login.html')
 def bienvenida(request):
     return HttpResponse("Prueba 1")
 def plantilla(request):
@@ -18,3 +18,5 @@ def plantilla(request):
     contexo = Context()
     documento = template.render(contexo)
     return HttpResponse(documento)
+    #FIXED La funcion home ya accede al login del html, se necesitaba poner dentro de la ruta
+    #de la aplicacion que es theone y ahi crear los templates

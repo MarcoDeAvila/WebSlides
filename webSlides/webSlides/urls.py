@@ -24,4 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', plantilla),
     path('', include('theone.urls')),
+    path('1/', include('theone.urls')),
+
 ]
