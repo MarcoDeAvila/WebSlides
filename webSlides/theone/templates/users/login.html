@@ -2,15 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>login</title>
-
+    <title>Login</title>
 </head>
 <body>
-    <h1>
-        Hola
-    </h1>
-    <h4>
-        login desde html, todavia falta conectar con el css xd
-    </h4>
+    <div id="contenedor">
+        <header>
+            <h4></h4> <!--el texto es invisible, solo sirve para guardar la simetría-->
+        </header>
+        <section class="contenido">
+
+            <article class="tarjeta-login" action="">
+                <h2>Login</h2><br>
+
+                <h3>Sing in</h3><br>
+
+                <form class="form-login" method="post" action="">
+
+                    <br><br>
+                    <input class="campo" name="usuario" type="text" placeholder="Username" required/>
+
+                    <br><br>
+                    <input class="campo" name="password" type="password" placeholder="Password" required/>
+
+                    <br><br>
+                    <input type="submit" value="Sing in" class="boton-registrar">
+                </form>
+            </article>
+        </section>
+    </div>
 </body>
 </html>

@@ -5,18 +5,3 @@ from django.template import Template, Context
 
 def home(request):
     return render(request, 'users/login.html')
-def bienvenida(request):
-    return HttpResponse("Prueba 1")
-def plantilla(request):
-    #FIXME
-    plantilaExt = open('C:/Users/fede1/Documents/Repositorios/WebSlides/webSlides/plantilla/login.html')
-    #plantilaExt = open('/webSlides/plantilla/login.html')
-    # No se por que no jala con la ruta relativa
-
-    template = Template(plantilaExt.read())
-    plantilaExt.close()
-    contexo = Context()
-    documento = template.render(contexo)
-    return HttpResponse(documento)
-    #FIXED La funcion home ya accede al login del html, se necesitaba poner dentro de la ruta
-    #de la aplicacion que es theone y ahi crear los templates
