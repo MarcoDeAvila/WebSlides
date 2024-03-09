@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import Template, Context
 # Create your views here.
+
+def home(request):
+    return HttpResponse("<h1>HOLA</h1>")
 def bienvenida(request):
     return HttpResponse("Prueba 1")
 def plantilla(request):
