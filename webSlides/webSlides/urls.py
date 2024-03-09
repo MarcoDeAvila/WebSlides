@@ -16,7 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from theone.views import bienvenida
+from theone.views import plantilla
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', plantilla),
 ]
