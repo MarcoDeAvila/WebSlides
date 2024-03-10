@@ -19,6 +19,7 @@
                 <h3>Sign Up</h3><br>
 
                 <form class="formulario" action="" method="post"  >
+                    {% csrf_token %}
 
                     <label for="User">User<label>
                     <input class="campo"  name="user" required/> <!--Hacer los inputs con clase "campo"--->
