@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
+from .forms import RegistroFormulario
 from django.contrib import messages
 from django.template import Template, Context
 # Create your views here.
@@ -10,16 +11,14 @@ def home(request):
 
 def signin(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = RegistroFormulario(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('user')
-            messages.success(request, 'Hola ' + username + ' tu cuenta ha sido creada exitosamente')
+            user = form.save()
+            login(request, user)
             return redirect('home')
     else:
-        form = UserCreationForm()
-
-    return render(request,'users/signin.html')
+        form = RegistroFormulario()
+    return render(request,'users/signin.html', {'form': form})
 
 def login(request):
     return render(request, 'users/login.html')
