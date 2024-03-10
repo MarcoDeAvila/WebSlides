@@ -1,24 +1,59 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth.forms import UserCreationForm
-from .forms import RegistroFormulario
-from django.contrib import messages
-from django.template import Template, Context
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
+from .forms import SignIn_User, SignUp_User
+
 # Create your views here.
+def signUp(request):
+    if request.method == 'GET':
+        return render(request, 'signUp.html', {
+            'form': SignUp_User()
+        })
+    else:
+        if request.POST['password'] == request.POST['confirmPassword']:
+            try:
+                user = User.objects.create_user(
+                    username=request.POST['username'],
+                    email=request.POST['email'],
+                    password=request.POST['password']
+                )
+                user.save()
+                login(request, user)
+                return redirect('home')
+            except:
+                return render(request, 'signUp.html', {
+                'form': SignUp_User(),
+                'error': 'Username already exists.'
+                })
+        else:
+            return render(request, 'signUp.html', {
+            'form': SignUp_User(),
+            'error': 'Password do not match.'
+        })
 
-def home(request):
-    return HttpResponse("<h1>Pagina de bienvenida</h1>")
-
-def signin(request):
-    if request.method == 'POST':
-        form = RegistroFormulario(request.POST)
-        if form.is_valid():
-            user = form.save()
+def signIn(request):
+    if request.method == "GET":
+        return render(request, 'signin.html', {
+            'form': SignIn_User()
+        })
+    else:
+        user = authenticate(request, 
+                     username=request.POST['username'],
+                     password=request.POST['password']
+        )
+        if user is None:
+            return render(request, 'signin.html', {
+            'form': SignIn_User(),
+            'error': 'Username or password is incorrect.'
+            })
+        else:
             login(request, user)
             return redirect('home')
-    else:
-        form = RegistroFormulario()
-    return render(request,'users/signin.html', {'form': form})
 
-def login(request):
-    return render(request, 'users/login.html')
+def home(request):
+    return render(request, 'home.html')
+
+def singOut(request):
+    logout(request)
+    return redirect('signin')

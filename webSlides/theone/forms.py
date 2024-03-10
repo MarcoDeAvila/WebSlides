@@ -1,10 +1,32 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 
-class RegistroFormulario(UserCreationForm):
-    email = forms.EmailField()
+class SignIn_User(forms.Form): # inicio sesion
+    username = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'campo',
+        'placeholder': 'Username'
+    }), required=True)
+    password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'placeholder': 'Password', 
+        'class': 'campo',
+    }), required=True)
 
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'password']
+class SignUp_User(forms.Form): # registro
+    username = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'campo',
+        'placeholder': 'Username'
+    }), required=True)
+
+    email = forms.EmailField(widget=forms.EmailInput(attrs={
+        'class': 'campo',
+        'placeholder': 'Email'
+    }), required=True)
+    
+    password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'placeholder': 'Password', 
+        'class': 'campo',
+    }), required=True)
+    
+    confirmPassword = forms.CharField(widget=forms.PasswordInput(attrs={
+        'placeholder': 'Confirm Password', 
+        'class': 'campo',
+    }), required=True)

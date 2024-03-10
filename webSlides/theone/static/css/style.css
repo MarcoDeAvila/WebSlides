@@ -113,19 +113,17 @@ h4{
 }
 
 .form-login{
-    padding: 50px 70px;
+    padding: 25px 50px;
     line-height: 30px;
     font-size: 17px;
 }
 /*Termina codigo para login*/
 
 .formulario{
-    padding: 50px 70px;
+    padding: 25px 50px;
     line-height: 30px;
     font-size: 17px;
 }
-
-
 
 
 .boton-modificar button{

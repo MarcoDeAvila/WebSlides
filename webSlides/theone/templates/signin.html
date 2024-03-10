@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">
+    <title>Login</title>
+</head>
+<body>
+    <div id="contenedor">
+        <section class="contenido">
+            <article class="tarjeta-login" action="">
+                <h2>WebSlides</h2><br>
+                <h3>Sign In</h3><br>
+                <form class="form-login" method="POST" action="">
+                    {% csrf_token %}
+                    <br>
+                    {{error}}
+                    <br>
+                    {{form.username}}
+                    <br>
+                    {{form.password}}
+                    <br>
+                    <input type="submit" value="Sing in" class="boton-registrar">
+                    <br>
+                    <a href='/signup'>Sign Up</a>
+                </form>
+            </article>
+        </section>
+    </div>
+</body>
+</html>
