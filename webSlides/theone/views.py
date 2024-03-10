@@ -6,5 +6,8 @@ from django.template import Template, Context
 def home(request):
     return HttpResponse("<h1>Pagina de bienvenida</h1>")
 
+def signin(request):
+    return render(request,'users/signin.html')
+
 def login(request):
     return render(request, 'users/login.html')
