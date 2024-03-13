@@ -6,6 +6,11 @@
     <title>WebSlides</title>
 </head>
 <body>
+    <H5>
+        {% for message in messages %}
+            <div class="not" id="message">{{ message }}</div>
+        {% endfor %}
+    </H5>
     <H1>Bienvenido a WebSlides</H1>
     <a href='/logout'>Logout</a>
 </body>
