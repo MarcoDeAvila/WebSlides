@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from .forms import SignIn_User, SignUp_User
+from django.contrib import messages
 
 # Create your views here.
 def signUp(request):
@@ -20,6 +21,7 @@ def signUp(request):
                 )
                 user.save()
                 login(request, user)
+                messages.success(request, '¡Registro exitoso! Ahora puedes iniciar a navegar.')
                 return redirect('home')
             except:
                 return render(request, 'signUp.html', {
