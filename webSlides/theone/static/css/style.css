@@ -57,6 +57,22 @@ h4{
     visibility: hidden; /*esta estiqueta solo sirve para guardar la simetría*/
 }
 
+h5 {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    width: 300px;
+    height: 200px;
+    margin-left: -150px;
+    margin-top: -100px;
+    background-color: var(--miBlanco);
+    padding: 20px;
+    border: 1px solid var(--primaro);
+    text-align: center;
+}
+
 .boton-cerrar button{
     cursor: pointer;
     color: var(--miBlanco);
