@@ -42,7 +42,8 @@ INSTALLED_APPS = [
 
 
     #propias
-    'theone'
+    'theone',
+    'presentaciones'
 
 ]
 
