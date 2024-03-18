@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 
     #propias
     'theone',
-    'presentaciones'
+    'slideshow'
 
 ]
 
