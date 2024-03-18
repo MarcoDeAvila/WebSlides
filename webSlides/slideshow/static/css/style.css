@@ -43,11 +43,9 @@ header {
 h1 { /*Titulo del nav-header*/
     font-size: 20px;
     font-family: 'Montserrat', sans-serif;
-
 }
 
 h2 {
-    text-align: center;
     color: var(--secundario);
 }
 
@@ -55,11 +53,12 @@ h3 {
     font-size: 18px;
 }
 
-h6{
-    color: var(--primaro);
+h4{
+    visibility: hidden; /*esta estiqueta solo sirve para guardar la simetría*/
 }
 
 h5 {
+    display: none;
     position: fixed;
     z-index: 1;
     left: 50%;
@@ -73,8 +72,6 @@ h5 {
     border: 1px solid var(--primaro);
     text-align: center;
 }
-
-
 
 .boton-cerrar button{
     cursor: pointer;
@@ -113,6 +110,7 @@ h5 {
     background-color: var(--miBlanco);
 }
 
+
 .campo {
     padding: 10px;
     border-radius: 5px;
@@ -135,6 +133,7 @@ h5 {
     line-height: 30px;
     font-size: 17px;
 }
+
 
 .formulario{
     padding: 25px 50px;
@@ -168,4 +167,11 @@ h5 {
 .ocultar{
   display: none;
 
+}
+
+.mi-input {
+    width: 800px;
+    height: 50px;
+
+    border: 1px solid var(--primaro);
 }
