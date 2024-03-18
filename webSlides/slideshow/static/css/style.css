@@ -43,9 +43,11 @@ header {
 h1 { /*Titulo del nav-header*/
     font-size: 20px;
     font-family: 'Montserrat', sans-serif;
+
 }
 
 h2 {
+    text-align: center;
     color: var(--secundario);
 }
 
@@ -53,12 +55,11 @@ h3 {
     font-size: 18px;
 }
 
-h4{
-    visibility: hidden; /*esta estiqueta solo sirve para guardar la simetría*/
+h6{
+    color: var(--primaro);
 }
 
 h5 {
-    display: none;
     position: fixed;
     z-index: 1;
     left: 50%;
@@ -72,6 +73,8 @@ h5 {
     border: 1px solid var(--primaro);
     text-align: center;
 }
+
+
 
 .boton-cerrar button{
     cursor: pointer;
@@ -110,15 +113,6 @@ h5 {
     background-color: var(--miBlanco);
 }
 
-.tarjeta-slide{
-    text-align: center;
-    margin: 1.5rem;
-    border-radius: 10px;
-    padding: 2rem;
-    background-color: var(--miBlanco);
-}
-
-/*Codigo para login*/
 .campo {
     padding: 10px;
     border-radius: 5px;
