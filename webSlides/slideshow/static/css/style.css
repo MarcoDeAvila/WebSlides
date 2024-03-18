@@ -110,6 +110,14 @@ h5 {
     background-color: var(--miBlanco);
 }
 
+.tarjeta-slide{
+    text-align: center;
+    margin: 1.5rem;
+    border-radius: 10px;
+    padding: 2rem;
+    background-color: var(--miBlanco);
+}
+
 /*Codigo para login*/
 .campo {
     padding: 10px;
@@ -133,7 +141,6 @@ h5 {
     line-height: 30px;
     font-size: 17px;
 }
-/*Termina codigo para login*/
 
 .formulario{
     padding: 25px 50px;

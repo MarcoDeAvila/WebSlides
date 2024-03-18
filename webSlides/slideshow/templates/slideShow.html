@@ -1,25 +1,21 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static '/css/style.css' %}">
-    <title>Slideshow</title>
+    <title>SlideShow</title>
 </head>
 <body>
-<div id="presentacion" data-component="slideshow">
-    <div role="list">
-        <div class="slide active">
-            <h1>Título de la Diapositiva 1</h1>
-            <p>Texto de la Diapositiva 1.</p>
-        </div>
-        <div class="slide">
-            <h1>Título de la Diapositiva 2</h1>
-            <p>Texto de la Diapositiva 2.</p>
-        </div>
+    <div id="contenedor">
+        <section class="contenido">
+            <article class="tarjeta-login" action="">
+                <h2>SlideShow</h2><br>
+                <h3>Titulo de la Presentacion</h3><br>
+                <p>Texto de la Diapositiva 1.</p>
 
-        <!-- TODO Agrega boton para cambiar de diapositivas -->
+            </article>
+        </section>
     </div>
-</div>
-
 </body>
 </html>
