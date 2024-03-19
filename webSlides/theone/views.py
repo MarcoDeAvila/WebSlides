@@ -6,6 +6,8 @@ from .forms import SignIn_User, SignUp_User
 from django.contrib import messages
 
 # Create your views here.
+
+
 def signUp(request):
     if request.method == 'GET':
         return render(request, 'signUp.html', {
@@ -21,18 +23,21 @@ def signUp(request):
                 )
                 user.save()
                 login(request, user)
-                messages.success(request, '¡Registro exitoso! Ahora puedes iniciar a navegar.')
+                messages.success(
+                    request,
+                    '¡Registro exitoso! Ahora puedes iniciar a navegar.')
                 return redirect('home')
-            except:
+            except BaseException:
                 return render(request, 'signUp.html', {
-                'form': SignUp_User(),
-                'error': 'Username already exists.'
+                    'form': SignUp_User(),
+                    'error': 'Username already exists.'
                 })
         else:
             return render(request, 'signUp.html', {
-            'form': SignUp_User(),
-            'error': 'Password do not match.'
-        })
+                'form': SignUp_User(),
+                'error': 'Password do not match.'
+            })
+
 
 def signIn(request):
     if request.method == "GET":
@@ -40,21 +45,23 @@ def signIn(request):
             'form': SignIn_User()
         })
     else:
-        user = authenticate(request, 
-                     username=request.POST['username'],
-                     password=request.POST['password']
-        )
+        user = authenticate(request,
+                            username=request.POST['username'],
+                            password=request.POST['password']
+                            )
         if user is None:
             return render(request, 'signin.html', {
-            'form': SignIn_User(),
-            'error': 'Username or password is incorrect.'
+                'form': SignIn_User(),
+                'error': 'Username or password is incorrect.'
             })
         else:
             login(request, user)
             return redirect('home')
 
+
 def home(request):
     return render(request, 'home.html')
+
 
 def singOut(request):
     logout(request)
