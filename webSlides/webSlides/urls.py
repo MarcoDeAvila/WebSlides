@@ -23,4 +23,3 @@ urlpatterns = [
     path('', include('theone.urls')),
     path('', include('slideshow.urls')),
 ]
-
