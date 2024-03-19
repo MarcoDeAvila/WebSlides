@@ -17,11 +17,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Presentacion',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True,
+                                           serialize=False,
+                                           verbose_name='ID')),
                 ('titulo', models.CharField(max_length=200)),
                 ('descripcion', models.TextField()),
                 ('fecha', models.DateField(auto_now_add=True)),
-                ('usuario', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('usuario', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]
