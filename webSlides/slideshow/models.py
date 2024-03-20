@@ -4,9 +4,12 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
-class Presentacion(models.Model):
+class Slides(models.Model):
+    title = models.CharField(max_length=50)
+    details = models.CharField(max_length=100)
+    content = models.TextField(null=False, default="")
+    date = models.DateTimeField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    titulo = models.CharField(max_length=200)
-    descripcion = models.TextField()
-    fecha = models.DateField(auto_now_add=True)
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    def __str__(self) -> str:
+        return self.title

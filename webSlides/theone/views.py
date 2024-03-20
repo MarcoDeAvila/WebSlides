@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from .forms import SignIn_User, SignUp_User
-from django.contrib import messages
+from slideshow.views import home
 
 # Create your views here.
 
@@ -23,11 +23,8 @@ def signUp(request):
                 )
                 user.save()
                 login(request, user)
-                messages.success(
-                    request,
-                    '¡Registro exitoso! Ahora puedes iniciar a navegar.')
-                return redirect('home')
-            except BaseException:
+                return redirect('slides:home')
+            except:
                 return render(request, 'signUp.html', {
                     'form': SignUp_User(),
                     'error': 'Username already exists.'
@@ -56,13 +53,9 @@ def signIn(request):
             })
         else:
             login(request, user)
-            return redirect('home')
-
-
-def home(request):
-    return render(request, 'home.html')
+            return redirect('slides:home')
 
 
 def singOut(request):
     logout(request)
-    return redirect('signin')
+    return redirect('usuarios:signin')

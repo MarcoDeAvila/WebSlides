@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/homepage.css' %}">
+    <title>WebSlides</title>
+</head>
+<body>
+    <header>
+        <a href="" class="logo">
+            <h2>WebSlides</h2>
+        </a>
+        <nav>
+            <a href="" class="nav-link">Search</a>
+            {% if user.is_authenticated and admin %}
+            <a href="#" class="nav-link" id="show-create">Create Slides</a>
+            {% endif %}
+            <a href= {% url "usuarios:logout" %} class="nav-link">Logout</a>
+        </nav>
+    </header>
+
+    <div class="popup" id="popup">
+        <div class="close-btn">&times;</div>
+        <form class="form" action="" method="POST">
+            {% csrf_token %}
+            <h2>New Slide</h2>
+            <div class="form-element">
+                {{newSlide.title}}
+            </div>
+            <div class="form-element">
+                {{newSlide.details}}
+            </div>
+            <div class="form-element">
+                {{newSlide.content}}
+            </div>
+            <div class="form-element">
+                <input type="submit" value="Create" class="boton-registrar">
+            </div>
+        </form>
+    </div>
+
+    <div class="content">
+        {% for slide in slides %}
+        <div>
+            <div class="card">
+                <h2>{{slide.title}}</h2>
+                <h3>{{slide.details}}</h3>
+                <h4>by {{slide.author}}</h4>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+<script>
+    document.querySelector("#show-create").addEventListener("click", function(){
+        document.querySelector("#popup").classList.add("active");
+    });
+
+    document.querySelector(".popup .close-btn").addEventListener("click", function(){
+        document.querySelector("#popup").classList.remove("active");
+    });
+</script>
+
+</body>
+</html>
