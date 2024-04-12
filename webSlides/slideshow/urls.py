@@ -5,6 +5,5 @@ app_name = 'slides'
 
 urlpatterns = [
     path('', views.ShowSlides, name='home'),
-    path('temporal/', views.Temporal, name='temporal'),
+    path('<str:filename>/', views.Temporal, name='temporal'),
 ]
-

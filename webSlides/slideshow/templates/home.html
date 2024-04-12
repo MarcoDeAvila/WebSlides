@@ -42,12 +42,12 @@
     </div>
 
     <div class="content">
-        {% for slide in slides %}
+        {% for presentacion in presentaciones %}
         <div>
             <div class="card">
-                <h2>{{slide.title}}</h2>
-                <h3>{{slide.details}}</h3>
-                <h4>by {{slide.author}}</h4>
+                <a href="{% url 'slides:temporal' presentacion %}">
+                    <pre>{{presentacion}}</pre>
+                </a>
             </div>
         </div>
         {% endfor %}
