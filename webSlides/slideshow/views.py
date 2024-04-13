@@ -78,7 +78,7 @@ def ConvertToMD(content):
         elif linea.startswith("- "):
             resultado.append(f"<li>{linea[2:].strip()}</li>")
         elif linea.startswith("http") or linea.startswith("https"):
-            resultado.append(f"<img src='{linea}'>")
+            resultado.append(f"<img src='{linea}' style=\"max-width: 300px;\">")
         else:
             resultado.append(linea)
     return resultado
