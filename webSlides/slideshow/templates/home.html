@@ -4,49 +4,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static '/homepage.css' %}">
+    <link rel="stylesheet" href="{% static '/home.css' %}">
     <title>WebSlides</title>
 </head>
 <body>
     <header>
-        <a href="" class="logo">
+        <a href="">
             <h2>WebSlides</h2>
         </a>
         <nav>
-            <a href="" class="nav-link">Search</a>
             {% if user.is_authenticated and admin %}
-            <a href="#" class="nav-link" id="show-create">Create Slides</a>
+            <a href="#" id="btnSlide-abir-modal">Create Slides</a>
+            <a href="#" id="btnUsers-abrir-modal">Search Users</a>
             {% endif %}
             <a href= {% url "usuarios:logout" %} class="nav-link">Logout</a>
         </nav>
     </header>
 
-    <div class="popup" id="popup">
-        <div class="close-btn">&times;</div>
-        <form class="form" action="" method="POST">
+    <dialog class="modal" id="modal-slide">
+        <h2 class="modal-title">Nueva Presentacion</h2>
+        <form action="" method="POST">
             {% csrf_token %}
-            <h2>New Slide</h2>
-            <div class="form-element">
+            <label for="">Titulo</label>
+            <div class="modal-slide-title">
                 {{newSlide.title}}
             </div>
-            <div class="form-element">
-                {{newSlide.details}}
-            </div>
-            <div class="form-element">
+            <label for="">Contenido</label>
+            <div class="modal-slide-content">
                 {{newSlide.content}}
             </div>
-            <div class="form-element">
-                <input type="submit" value="Create" class="boton-registrar">
+            <div class="modal-actions">
+                <button id="btnSlide-cerrar-modal">Cancelar</button>
+                <button id="btn-crear">Crear</button>
             </div>
         </form>
-    </div>
+    </dialog>
 
-    <div class="content">
+    <dialog class="modal" id="modal-user">
+        <h2 class="modal-title">Administracion de Permisos</h2>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label for="">Nombre de Usuario</label>
+            <div class="modal-slide-title">
+                {{newSlide.title}}
+            </div>
+            <div class="modal-slide-content">
+            </div>
+            <div class="modal-actions">
+                <button id="btnUsers-cerrar-modal">Cancelar</button>
+                <button id="btn-crear">Crear</button>
+            </div>
+        </form>
+    </dialog>
+
+    <div>
         {% for presentacion in presentaciones %}
         <div>
-            <div class="card">
+            <div>
                 <a href="{% url 'slides:temporal' presentacion %}">
-                    <pre>{{presentacion}}</pre>
+                    {{presentacion}}
                 </a>
             </div>
         </div>
@@ -54,12 +70,28 @@
     </div>
 
 <script>
-    document.querySelector("#show-create").addEventListener("click", function(){
-        document.querySelector("#popup").classList.add("active");
+    const btnSlideOpenModal = document.querySelector('#btnSlide-abir-modal');
+    const btnSlideCloseModal = document.querySelector('#btnSlide-cerrar-modal');
+    const modalSlide = document.querySelector('#modal-slide');
+
+    const btnOpenUserModal = document.querySelector('#btnUsers-abrir-modal')
+    const btnCloseUserModal = document.querySelector('#btnUsers-cerrar-modal')
+    const modalUser = document.querySelector('#modal-user')
+
+    btnSlideOpenModal.addEventListener("click", ()=>{ // Open Slide
+       modalSlide.showModal();
     });
 
-    document.querySelector(".popup .close-btn").addEventListener("click", function(){
-        document.querySelector("#popup").classList.remove("active");
+    btnSlideCloseModal.addEventListener("click", ()=>{ // Close Slide
+       modalSlide.close();
+    });
+
+    btnOpenUserModal.addEventListener("click", ()=>{ //
+       modalUser.showModal();
+    });
+
+    btnCloseUserModal.addEventListener("click", ()=>{
+       modalUser.close();
     });
 </script>
 

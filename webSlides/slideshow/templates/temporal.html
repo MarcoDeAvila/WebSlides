@@ -1,12 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/slide.css' %}">
     <title>Document</title>
 </head>
 <body>
-    {% if slides %}
+    <dialog class="modal" id="modal">
+        {% if slides %}
         {% for slide_content in slides %}
             <div class="slide" id="slide{{ forloop.counter }}">
                 {% for elemento in slide_content %}
@@ -17,11 +20,19 @@
             </div>
         {% endfor %}
     {% endif %}
+    </dialog>
+
 
     <script>
+        const modal = document.querySelector('#modal')
         let currentSlide = 1;
         const totalSlides = {{slides|length}}
-        HideSlides();        
+
+        modal.showModal();
+        HideSlides();
+
+
+
         function HideSlides(){
             for(var i = 2; i <= totalSlides; i++){
                 document.getElementById("slide"+i).style.display = "none";

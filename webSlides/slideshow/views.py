@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from .forms import New_Slide_Form
+from .forms import New_Slide_Form, Search_User_Form
+from django.contrib.auth.models import User
 import os
 # Create your views here.
 
@@ -18,11 +19,13 @@ def ShowSlides(request):
             lista_presentaciones.append(filename.replace('.txt', ''))
 
     is_admin = request.user.is_staff
+
     if request.method == 'GET':
         return render(request, 'home.html', {
             'presentaciones': lista_presentaciones,
             'admin': is_admin,
-            'newSlide': New_Slide_Form()
+            'newSlide': New_Slide_Form(),
+            'searchUser': Search_User_Form()
         })
     else:
         CreateSlide(request)
@@ -37,6 +40,12 @@ def CreateSlide(request):
     SlideFile.writelines(request.POST['content'])
     SlideFile.close()
 
+def SearchUser(request):
+    username = request.POST['username']
+    try:
+        user = User.objects.get(username=username)
+    except:
+        return redirect('home')
 
 
 def Temporal(request, filename):

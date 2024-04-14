@@ -1,0 +1,18 @@
+*{
+    font-family: Lexend;
+}
+
+.modal::backdrop{
+    background-color: rgba(0, 0, 0, .55);
+}
+.modal{
+    width: 80%;
+    height: 80%;
+    justify-content: center;
+    align-items: center;
+    background-color: #B3C8CF;
+    border: 0px;
+    outline: none;
+    border-radius: 5px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+}

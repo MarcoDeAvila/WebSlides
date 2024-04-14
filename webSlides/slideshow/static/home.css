@@ -1,0 +1,100 @@
+*{
+    font-family: Lexend;
+}
+
+/* Modal */
+.modal::backdrop{
+    background-color: rgba(0, 0, 0, .25);
+}
+.modal{
+    min-width: 50%;
+    min-height: 80%;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFF;
+    border: 0px;
+    outline: none;
+    border-radius: 5px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+}
+.modal .modal-title{
+    display: flex;
+    justify-content: center;
+    margin: 25px;
+    width: auto;
+    color: #4793AF;
+}
+.modal form{
+    height: 100%;
+}
+
+.modal label{
+    margin-bottom: 15px;
+    padding-left: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.modal .modal-slide-title, .modal-slide-content, .modal-actions{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    width: auto;
+    height: 100%;
+}
+.modal .modal-slide-title input{
+    width: 100%;
+    height: 25px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #d9d9d9;
+    outline: none;
+    padding: 5px;
+}
+.modal .modal-slide-title input::placeholder{
+    text-align: center;
+    font-size: 1rem;
+}
+
+.modal .modal-slide-content textarea{
+    width: 100%;
+    height: 350px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #d9d9d9;
+    outline: none;
+    padding: 5px;
+    resize: none;
+    outline: none;
+}
+.modal .modal-slide-title textarea::placeholder{
+    text-align: center;
+    font-size: 1rem;
+}
+
+.modal .modal-actions{
+    width: 100%;
+}
+.modal .modal-actions button{
+    width: 100%;
+    height: 50px;
+    margin: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+#btnSlide-cerrar-modal, #btnUsers-cerrar-modal{
+    font-weight: bold;
+    background-color: #FFF;
+    border-radius: 5px;
+    border: 1px solid #d9d9d9;
+}
+#btn-crear{
+    font-weight: bold;
+    color: #FFF;
+    background-color: #4793AF;
+    border-radius: 5px;
+    border: 1px solid #4793AF;
+}
+
+
