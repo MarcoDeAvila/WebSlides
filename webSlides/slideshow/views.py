@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
-from .forms import New_Slide_Form, Search_User_Form
+from .forms import New_Slide_Form, Edit_Slide_Form
 from django.contrib.auth.models import User
 import os
-#import markdown
+import markdown
+from django.http import JsonResponse
+
 # Create your views here.
 
 
@@ -11,7 +13,6 @@ def home(request):
 
 
 def ShowSlides(request):
-
     directorio = 'SlideFiles'
     lista_presentaciones = []
 
@@ -29,22 +30,26 @@ def ShowSlides(request):
             'usuarios': lista_Usuarios,
             'admin': is_admin,
             'newSlide': New_Slide_Form(),
-            'searchUser': Search_User_Form()
+            'edit': Edit_Slide_Form()
         })
-    else:
-        CreateSlide(request)
-        return redirect('slides:home')
 
 
 def CreateSlide(request):
-    title = request.POST['title']
-    path = 'SlideFiles/'+title+'.txt'
-    SlideFile = open(path, 'x')
-    SlideFile =  open(path, 'w')
-    SlideFile.writelines(request.POST['content'])
-    SlideFile.close()
+    if request.method == 'POST':
+        title = request.POST['title']
+        path = 'SlideFiles/'+title+'.txt'
+        SlideFile = open(path, 'x')
+        SlideFile =  open(path, 'w')
+        SlideFile.writelines(request.POST['content'])
+        SlideFile.close()
+        return redirect('slides:home')
+    else:
+        return render(request, 'nueva.html', {
+            'newSlide': New_Slide_Form(),
+        })
+        
 
-def Temporal(request, filename):
+def Presentacion(request, filename):
     path = f'Slidefiles/{filename}.txt'
     with open(path, 'r') as file:
         content = file.read()
@@ -63,3 +68,30 @@ def ConvertToMD(content):
     # Convierte el contenido Markdown a HTML
     html_content = md.convert(content)
     return html_content
+
+def Editar(request):
+    filename = request.GET.get('filename', None)
+    path = f'Slidefiles/{filename}.txt'
+    
+    if request.method == 'POST':
+        os.rename(path, request.POST['title'])
+        with open(path, 'w') as file:
+            file.write(request.POST['content'])
+        return redirect('slides:home')
+    else:
+        with open(path, 'r') as file:
+            content = file.read()
+        return render(request, 'editar.html', {
+            'edit': Edit_Slide_Form(),
+            'content': content, 
+            'title': filename
+        })
+    
+def Eliminar(request):
+    try:
+        filename = request.GET.get('filename', None)
+        path = f'Slidefiles/{filename}.txt'
+        os.remove(path)
+        return JsonResponse({'message': 'Archivo eliminado correctamente'}, status=200)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)

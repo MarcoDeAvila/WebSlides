@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/home.css' %}">
+    <title>WebSlides</title>
+</head>
+<body>
+    <dialog class="modal" id="modal-edit">
+        <h2 class="modal-title">Editar Presentacion</h2>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label for="">Titulo</label>
+            <div class="modal-edit-title">
+                {{edit.title}}
+            </div>
+            <label for="">Contenido</label>
+            <div class="modal-edit-content">
+                {{edit.content}}
+            </div>
+            <div class="modal-actions">
+                <button id="btnEdit-cerrar-modal">Cancelar</button>
+                <button id="btn-crear">Guardar</button>
+                <button onclick="EliminarSlide('{{title}}')">Eliminar</button>
+            </div>
+        </form>
+    </dialog>
+<script>
+    const btnSlideCloseModal = document.querySelector('#btnEdit-cerrar-modal');
+    const modalEdit = document.querySelector('#modal-edit');
+
+    const titulo = document.querySelector('#title');
+    const contenido = document.querySelector('#content');
+    titulo.value = `{{title}}`;
+    contenido.value = `{{content}}`;
+
+    modalEdit.showModal();
+
+    btnSlideCloseModal.addEventListener("click", ()=>{ // Close Slide
+       modalEdit.close();
+    });
+
+    modalEdit.addEventListener('close', function () {
+        window.location.href = "/slides";
+    });
+
+    function EliminarSlide(filename){
+        fetch(`editar/eliminar/?filename=${filename}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log("El archivo ha sido eliminado exitosamente.");
+                // Realiza cualquier otra acción necesaria después de eliminar el archivo
+            } else {
+                console.error("Error al eliminar el archivo:", response.status);
+            }
+        })
+        .catch(error => {
+            console.error("Error al eliminar el archivo:", error);
+        });
+    }
+</script>
+
+</body>
+</html>

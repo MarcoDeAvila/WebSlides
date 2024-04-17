@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/home.css' %}">
+    <title>WebSlides</title>
+</head>
+<body>
+    <dialog class="modal" id="modal-slide">
+        <h2 class="modal-title">Nueva Presentacion</h2>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label for="">Titulo</label>
+            <div class="modal-slide-title">
+                {{newSlide.title}}
+            </div>
+            <label for="">Contenido</label>
+            <div class="modal-slide-content">
+                {{newSlide.content}}
+            </div>
+            <div class="modal-actions">
+                <button id="btnSlide-cerrar-modal">Cancelar</button>
+                <button id="btn-crear">Crear</button>
+            </div>
+        </form>
+    </dialog>
+<script>
+    const btnSlideCloseModal = document.querySelector('#btnSlide-cerrar-modal');
+    const modalSlide = document.querySelector('#modal-slide');
+
+    modalSlide.showModal();
+
+    btnSlideCloseModal.addEventListener("click", ()=>{ // Close Slide
+       modalSlide.close();
+    });
+
+    modalSlide.addEventListener('close', function () {
+        window.location.href = "/slides";
+    });
+</script>
+
+</body>
+</html>
