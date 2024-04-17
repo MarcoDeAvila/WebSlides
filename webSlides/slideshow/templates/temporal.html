@@ -1,27 +1,22 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static '/slide.css' %}">
+    <link rel="stylesheet" href="{% static '/slideStyle.css' %}">
     <title>Document</title>
 </head>
 <body>
     <dialog class="modal" id="modal">
         {% if slides %}
-        {% for slide_content in slides %}
-            <div class="slide" id="slide{{ forloop.counter }}">
-                {% for elemento in slide_content %}
-                    <div>
-                        {{elemento | safe}}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endfor %}
-    {% endif %}
+            {% for slide_content in slides %}
+                <div class="slide" id="slide{{ forloop.counter }}">
+                {{slide_content|safe}}
+                </div>    
+            {% endfor %}        
+        {% endif %}
     </dialog>
-
 
     <script>
         const modal = document.querySelector('#modal')
@@ -63,6 +58,10 @@
             } else if(event.keyCode === 37){ // Flecha izquierda
                 ShowPreviousSlide();
             }
+        });
+
+        modal.addEventListener('close', function () {
+            window.location.href = "/slides";
         });
     </script>    
 </body>

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import New_Slide_Form, Search_User_Form
 from django.contrib.auth.models import User
 import os
+import markdown
 # Create your views here.
 
 
@@ -18,11 +19,14 @@ def ShowSlides(request):
         if filename.endswith('.txt'):
             lista_presentaciones.append(filename.replace('.txt', ''))
 
-    is_admin = request.user.is_staff
+    lista_Usuarios = User.objects.filter(is_superuser=False)
+
+    is_admin = request.user.is_superuser
 
     if request.method == 'GET':
         return render(request, 'home.html', {
             'presentaciones': lista_presentaciones,
+            'usuarios': lista_Usuarios,
             'admin': is_admin,
             'newSlide': New_Slide_Form(),
             'searchUser': Search_User_Form()
@@ -40,14 +44,6 @@ def CreateSlide(request):
     SlideFile.writelines(request.POST['content'])
     SlideFile.close()
 
-def SearchUser(request):
-    username = request.POST['username']
-    try:
-        user = User.objects.get(username=username)
-    except:
-        return redirect('home')
-
-
 def Temporal(request, filename):
     path = f'Slidefiles/{filename}.txt'
     with open(path, 'r') as file:
@@ -63,31 +59,7 @@ def Temporal(request, filename):
 
 
 def ConvertToMD(content):
-    lineas = content.strip().split('\n')
-    resultado = []
-
-    for linea in lineas:
-        if linea.startswith('#'):  # Titulos
-            level = linea.count('#')
-            resultado.append(f"<h{level}>{linea[level:].strip()}</h{level}>")
-        elif "**" in linea:  # Negritas
-            while "**" in linea:
-                inicio = linea.find("**")
-                fin = linea.find("**", inicio+2)
-                linea = linea[:inicio] + "<strong>" + \
-                    linea[inicio+2:fin] + "</strong>" + linea[fin+2:]
-            resultado.append(linea)
-        elif "*" in linea:  # Negritas
-            while "*" in linea:
-                inicio = linea.find("*")
-                fin = linea.find("*", inicio+1)
-                linea = linea[:inicio] + "<em>" + \
-                    linea[inicio+1:fin] + "</em>" + linea[fin+1:]
-            resultado.append(linea)
-        elif linea.startswith("- "):
-            resultado.append(f"<li>{linea[2:].strip()}</li>")
-        elif linea.startswith("http") or linea.startswith("https"):
-            resultado.append(f"<img src='{linea}' style=\"max-width: 300px;\">")
-        else:
-            resultado.append(linea)
-    return resultado
+    md = markdown.Markdown(extensions=['markdown.extensions.extra'])
+    # Convierte el contenido Markdown a HTML
+    html_content = md.convert(content)
+    return html_content

@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,6 @@
         <nav>
             {% if user.is_authenticated and admin %}
             <a href="#" id="btnSlide-abir-modal">Create Slides</a>
-            <a href="#" id="btnUsers-abrir-modal">Search Users</a>
             {% endif %}
             <a href= {% url "usuarios:logout" %} class="nav-link">Logout</a>
         </nav>
@@ -40,23 +39,6 @@
         </form>
     </dialog>
 
-    <dialog class="modal" id="modal-user">
-        <h2 class="modal-title">Administracion de Permisos</h2>
-        <form action="" method="POST">
-            {% csrf_token %}
-            <label for="">Nombre de Usuario</label>
-            <div class="modal-slide-title">
-                {{newSlide.title}}
-            </div>
-            <div class="modal-slide-content">
-            </div>
-            <div class="modal-actions">
-                <button id="btnUsers-cerrar-modal">Cancelar</button>
-                <button id="btn-crear">Crear</button>
-            </div>
-        </form>
-    </dialog>
-
     <div>
         {% for presentacion in presentaciones %}
         <div>
@@ -74,24 +56,12 @@
     const btnSlideCloseModal = document.querySelector('#btnSlide-cerrar-modal');
     const modalSlide = document.querySelector('#modal-slide');
 
-    const btnOpenUserModal = document.querySelector('#btnUsers-abrir-modal')
-    const btnCloseUserModal = document.querySelector('#btnUsers-cerrar-modal')
-    const modalUser = document.querySelector('#modal-user')
-
     btnSlideOpenModal.addEventListener("click", ()=>{ // Open Slide
        modalSlide.showModal();
     });
 
     btnSlideCloseModal.addEventListener("click", ()=>{ // Close Slide
        modalSlide.close();
-    });
-
-    btnOpenUserModal.addEventListener("click", ()=>{ //
-       modalUser.showModal();
-    });
-
-    btnCloseUserModal.addEventListener("click", ()=>{
-       modalUser.close();
     });
 </script>
 
