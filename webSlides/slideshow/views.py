@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import New_Slide_Form, Search_User_Form
 from django.contrib.auth.models import User
 import os
-import markdown
+#import markdown
 # Create your views here.
 
 
