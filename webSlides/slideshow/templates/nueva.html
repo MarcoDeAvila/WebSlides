@@ -4,31 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static '/home.css' %}">
+    <link rel="stylesheet" href="{% static '/modal.css' %}">
     <title>WebSlides</title>
 </head>
 <body>
-    <dialog class="modal" id="modal-slide">
+    <dialog class="modal" id="modal">
         <h2 class="modal-title">Nueva Presentacion</h2>
         <form action="" method="POST">
             {% csrf_token %}
             <label for="">Titulo</label>
-            <div class="modal-slide-title">
+            <div class="modal-title">
                 {{newSlide.title}}
             </div>
             <label for="">Contenido</label>
-            <div class="modal-slide-content">
+            <div class="modal-content">
                 {{newSlide.content}}
             </div>
             <div class="modal-actions">
-                <button id="btnSlide-cerrar-modal">Cancelar</button>
-                <button id="btn-crear">Crear</button>
+                <button id="btn-close">Cancelar</button>
+                <button id="btn-action">Crear</button>
             </div>
         </form>
     </dialog>
 <script>
-    const btnSlideCloseModal = document.querySelector('#btnSlide-cerrar-modal');
-    const modalSlide = document.querySelector('#modal-slide');
+    const btnSlideCloseModal = document.querySelector('#btn-close');
+    const modalSlide = document.querySelector('#modal');
 
     modalSlide.showModal();
 

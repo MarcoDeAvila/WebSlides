@@ -14,21 +14,25 @@ def home(request):
 
 def ShowSlides(request):
     directorio = 'SlideFiles'
-    lista_presentaciones = []
+    presentaciones = []
+    autores = []
 
     for filename in os.listdir(directorio):
         if filename.endswith('.txt'):
-            lista_presentaciones.append(filename.replace('.txt', ''))
-
-    lista_Usuarios = User.objects.filter(is_superuser=False)
+            path = os.path.join(directorio, filename)
+            presentacion_nombre = filename.replace('.txt', '')
+            with open(path, 'r') as file:
+                primer_linea = file.readline().strip()
+                autores.append(primer_linea)
+            presentaciones.append(presentacion_nombre)
 
     is_admin = request.user.is_superuser
+    author = request.user.username
 
     if request.method == 'GET':
+        presentaciones_con_autores = zip(presentaciones, autores)
         return render(request, 'home.html', {
-            'presentaciones': lista_presentaciones,
-            'usuarios': lista_Usuarios,
-            'admin': is_admin,
+            'presentaciones_con_autores': presentaciones_con_autores,
             'newSlide': New_Slide_Form(),
             'edit': Edit_Slide_Form()
         })
@@ -38,10 +42,13 @@ def CreateSlide(request):
     if request.method == 'POST':
         title = request.POST['title']
         path = 'SlideFiles/'+title+'.txt'
-        SlideFile = open(path, 'x')
-        SlideFile =  open(path, 'w')
-        SlideFile.writelines(request.POST['content'])
-        SlideFile.close()
+        content = request.POST['content']
+        author = request.user.username
+
+        with open(path, 'w') as SlideFile:
+            SlideFile.write(author + '\n')
+            SlideFile.write(content)
+
         return redirect('slides:home')
     else:
         return render(request, 'nueva.html', {
@@ -52,7 +59,10 @@ def CreateSlide(request):
 def Presentacion(request, filename):
     path = f'Slidefiles/{filename}.txt'
     with open(path, 'r') as file:
-        content = file.read()
+        lines = file.readlines()
+
+    # Excluir la primera línea que contiene el nombre de usuario
+    content = ''.join(lines[1:])
 
     slides = content.split("/Fin")
 
@@ -74,13 +84,26 @@ def Editar(request):
     path = f'Slidefiles/{filename}.txt'
     
     if request.method == 'POST':
-        os.rename(path, request.POST['title'])
-        with open(path, 'w') as file:
-            file.write(request.POST['content'])
+        newTitle = request.POST['title']
+        if newTitle != filename:
+            new_path = f'Slidefiles/{newTitle}.txt'
+            os.rename(path, new_path)
+        else:
+            new_path = path
+
+        content = request.POST['content']
+        author = request.user.username
+
+        new_content = f"{author}\n{content}"
+
+        with open(new_path, 'w') as file:
+            file.write(new_content)
         return redirect('slides:home')
     else:
         with open(path, 'r') as file:
-            content = file.read()
+            lines = file.readlines()[1:]
+            content = ''.join(lines)
+
         return render(request, 'editar.html', {
             'edit': Edit_Slide_Form(),
             'content': content, 

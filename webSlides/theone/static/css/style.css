@@ -3,7 +3,7 @@
 /* Colores a usar en toda la web */
 :root {
     --primaro: rgb(71, 48, 171);
-    --secundario: rgb(43, 5, 72);
+    --secundario: rgb(71, 147, 175);
     --terciario: rgb(33, 83, 141);
     --cuaternario: rgb(8, 47, 92);
     --miBlanco: rgb(255, 255, 255);
@@ -42,7 +42,6 @@ header {
 
 h1 { /*Titulo del nav-header*/
     font-size: 20px;
-    font-family: 'Montserrat', sans-serif;
 }
 
 h2 {
@@ -116,7 +115,8 @@ h5 {
     border-radius: 5px;
     margin-bottom: 15px;
     width: 300px;
-    border: 1px solid var(--primaro);
+    border: 1px solid var(--secundario);
+    outline: none;
 }
 
 .boton-registrar {
@@ -126,6 +126,9 @@ h5 {
     border: none;
     padding: 15px;
     margin: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
 }
 
 .form-login{
@@ -135,12 +138,19 @@ h5 {
 }
 /*Termina codigo para login*/
 
+.form-login a{
+    color: var(--secundario);
+}
+
 .formulario{
     padding: 25px 50px;
     line-height: 30px;
     font-size: 17px;
 }
 
+.formulario a{
+    color: var(--secundario);
+}
 
 .boton-modificar button{
     cursor: pointer;

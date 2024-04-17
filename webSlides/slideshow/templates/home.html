@@ -13,22 +13,24 @@
             <h2>WebSlides</h2>
         </a>
         <nav>
-            {% if user.is_authenticated and admin %}
+            {% if user.is_authenticated and user.is_superuser %}
             <a href= "nueva">Create Slides</a>
             {% endif %}
             <a href= {% url "usuarios:logout" %} class="nav-link">Logout</a>
         </nav>
     </header>
 
-    <div>
-        {% for presentacion in presentaciones %}
-        <div>
-            <div>
+    <div class="card-container">
+        {% for presentacion, autor in presentaciones_con_autores %}
+        <div class="card">
+            <div class="card-title">
                 <a href="{% url 'slides:temporal' presentacion %}">
                     {{presentacion}}
                 </a>
-                {% if user.is_authenticated and admin %}
-                <button id='{{presentacion}}' class='edit_button'>Editar</button>
+            </div>
+            <div class="card-button">
+                {% if user.is_authenticated and autor == user.username %}
+                    <button id='{{presentacion}}' class='edit_button'>Editar</button>
                 {% endif %}
             </div>
         </div>

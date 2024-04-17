@@ -4,32 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static '/home.css' %}">
+    <link rel="stylesheet" href="{% static '/modal.css' %}">
     <title>WebSlides</title>
 </head>
 <body>
-    <dialog class="modal" id="modal-edit">
+    <dialog class="modal" id="modal">
         <h2 class="modal-title">Editar Presentacion</h2>
         <form action="" method="POST">
             {% csrf_token %}
             <label for="">Titulo</label>
-            <div class="modal-edit-title">
+            <div class="modal-title">
                 {{edit.title}}
             </div>
             <label for="">Contenido</label>
-            <div class="modal-edit-content">
+            <div class="modal-content">
                 {{edit.content}}
             </div>
             <div class="modal-actions">
-                <button id="btnEdit-cerrar-modal">Cancelar</button>
-                <button id="btn-crear">Guardar</button>
-                <button onclick="EliminarSlide('{{title}}')">Eliminar</button>
+                <button id="btn-close">Cancelar</button>
+                <button id="btn-action">Guardar</button>
+                <!-- <button onclick="EliminarSlide('{{title}}')">Eliminar</button> -->
             </div>
         </form>
     </dialog>
 <script>
-    const btnSlideCloseModal = document.querySelector('#btnEdit-cerrar-modal');
-    const modalEdit = document.querySelector('#modal-edit');
+    const btnSlideCloseModal = document.querySelector('#btn-close');
+    const modalEdit = document.querySelector('#modal');
 
     const titulo = document.querySelector('#title');
     const contenido = document.querySelector('#content');

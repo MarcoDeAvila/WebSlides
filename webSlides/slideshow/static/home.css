@@ -1,98 +1,63 @@
 *{
-    font-family: Lexend;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-/* Modal */
-.modal::backdrop{
-    background-color: rgba(0, 0, 0, .25);
+header a{
+  color: #4793AF;
+  text-decoration: none;
+  font-family: 1rem;
+  padding: 5px;
 }
-.modal{
-    min-width: 50%;
-    min-height: 80%;
-    justify-content: center;
-    align-items: center;
-    background-color: #FFF;
-    border: 0px;
-    outline: none;
-    border-radius: 5px;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
-}
-.modal .modal-title{
+
+
+/* Estilos para el contenedor de cartas */
+.card-container {
     display: flex;
-    justify-content: center;
-    margin: 25px;
-    width: auto;
-    color: #4793AF;
-}
-.modal form{
-    height: 100%;
-}
-
-.modal label{
-    margin-bottom: 15px;
-    padding-left: 5px;
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-.modal .modal-slide-title, .modal-slide-content, .modal-actions{
-    display: flex;
-    justify-content: center;
-    margin-bottom: 15px;
-    width: auto;
-    height: 100%;
-}
-.modal .modal-slide-title input{
-    width: 100%;
-    height: 25px;
-    font-size: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  /* Estilos para la carta */
+.card {
+    width: 300px;
+    height: auto;
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    border: 1px solid #d9d9d9;
-    outline: none;
-    padding: 5px;
-}
-.modal .modal-slide-title input::placeholder{
-    text-align: center;
-    font-size: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 30px;
+    text-decoration: none;
+  }
+
+.card-title {
+    text-align: center; /* Centra el texto */
+    padding: 10px;
 }
 
-.modal .modal-slide-content textarea{
-    width: 100%;
-    height: 350px;
-    font-size: 1rem;
-    border-radius: 5px;
-    border: 1px solid #d9d9d9;
-    outline: none;
-    padding: 5px;
-    resize: none;
-    outline: none;
-}
-.modal .modal-slide-title textarea::placeholder{
-    text-align: center;
-    font-size: 1rem;
+.card-title a{
+  text-decoration: none;
+  color: #4793AF;
 }
 
-.modal .modal-actions{
+  /* Estilos para el botón */
+.edit_button {
+    display: block;
     width: 100%;
-}
-.modal .modal-actions button{
-    width: 100%;
-    height: 50px;
-    margin: 10px;
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-#btnSlide-cerrar-modal, #btnUsers-cerrar-modal{
-    font-weight: bold;
-    background-color: #FFF;
-    border-radius: 5px;
-    border: 1px solid #d9d9d9;
-}
-#btn-crear{
-    font-weight: bold;
-    color: #FFF;
+    padding: 10px;
     background-color: #4793AF;
+    color: #fff;
+    text-align: center;
+    border: none;
     border-radius: 5px;
-    border: 1px solid #4793AF;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
+  
+.edit_button:hover {
+    background-color: #4793AF;
+}
+
+.card-button{
+    margin: 10px;
+}
+  
