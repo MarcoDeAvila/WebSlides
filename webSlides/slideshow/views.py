@@ -41,7 +41,7 @@ def ShowSlides(request):
 def CreateSlide(request):
     if request.method == 'POST':
         title = request.POST['title']
-        path = 'SlideFiles/'+title+'.txt'
+        path = 'SlideFiles/' + title + '.txt'
         content = request.POST['content']
         author = request.user.username
 
@@ -54,7 +54,7 @@ def CreateSlide(request):
         return render(request, 'nueva.html', {
             'newSlide': New_Slide_Form(),
         })
-        
+
 
 def Presentacion(request, filename):
     path = f'Slidefiles/{filename}.txt'
@@ -79,10 +79,11 @@ def ConvertToMD(content):
     html_content = md.convert(content)
     return html_content
 
+
 def Editar(request):
     filename = request.GET.get('filename', None)
     path = f'Slidefiles/{filename}.txt'
-    
+
     if request.method == 'POST':
         newTitle = request.POST['title']
         if newTitle != filename:
@@ -106,15 +107,17 @@ def Editar(request):
 
         return render(request, 'editar.html', {
             'edit': Edit_Slide_Form(),
-            'content': content, 
+            'content': content,
             'title': filename
         })
-    
+
+
 def Eliminar(request):
     try:
         filename = request.GET.get('filename', None)
         path = f'Slidefiles/{filename}.txt'
         os.remove(path)
-        return JsonResponse({'message': 'Archivo eliminado correctamente'}, status=200)
+        return JsonResponse(
+            {'message': 'Archivo eliminado correctamente'}, status=200)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
