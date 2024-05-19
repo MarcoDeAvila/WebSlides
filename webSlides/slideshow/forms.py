@@ -1,9 +1,8 @@
 from django import forms
 
-
 class New_Slide_Form(forms.Form):  # inicio sesion
-    title = forms.CharField(widget=forms.TextInput(), required=True)
-    content = forms.CharField(widget=forms.Textarea(), required=True)
+    title = forms.CharField(widget=forms.TextInput(), required=False)
+    content = forms.CharField(widget=forms.Textarea(), required=False)
 
 class Edit_Slide_Form(forms.Form):  # inicio sesion
     title = forms.CharField(widget=forms.TextInput(attrs={

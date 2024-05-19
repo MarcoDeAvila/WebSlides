@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static '/home.css' %}">
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    <link rel="stylesheet" href="{% static 'modal.css' %}">
     <title>WebSlides</title>
 </head>
 <body>
@@ -14,9 +15,10 @@
         </a>
         <nav>
             {% if user.is_authenticated and user.is_superuser %}
-            <a href= "nueva">Create Slides</a>
+            <a href="#" id="btn-create-slide">Crear presentación</a>
+            <a href="#" id="btn-upload-slide">Subir presentación (txt)</a>
             {% endif %}
-            <a href= {% url "usuarios:logout" %} class="nav-link">Logout</a>
+            <a href="{% url 'usuarios:logout' %}" class="nav-link">Logout</a>
         </nav>
     </header>
 
@@ -25,29 +27,87 @@
         <div class="card">
             <div class="card-title">
                 <a href="{% url 'slides:temporal' presentacion %}">
-                    {{presentacion}}
+                    {{ presentacion }}
                 </a>
             </div>
             <div class="card-button">
                 {% if user.is_authenticated and autor == user.username %}
-                    <button id='{{presentacion}}' class='edit_button'>Editar</button>
+                    <button id='{{ presentacion }}' class='edit_button'>Editar</button>
                 {% endif %}
             </div>
         </div>
         {% endfor %}
     </div>
 
-<script>
+    <!-- Dialogo para nueva presentación -->
+    <dialog class="modal" id="modal-create">
+        <h2 class="modal-title">Nueva Presentación</h2>
+        <form action="{% url 'slides:nueva' %}" method="POST">
+            {% csrf_token %}
+            <label for="title">Título</label>
+            <div class="modal-title">
+                <input type="text" name="title">
+            </div>
+            <label for="content">Contenido</label>
+            <div class="modal-content">
+                <textarea name="content"></textarea>
+            </div>
+            <div class="modal-actions">
+                <button id="btn-close-create" type="button">Cancelar</button>
+                <button id="btn-action-create" type="submit">Crear</button>
+            </div>
+        </form>
+    </dialog>
 
-    const btnEditOpenModal = document.querySelectorAll('.edit_button');
-    btnEditOpenModal.forEach(btn => {
-        btn.addEventListener("click", ()=> {
-            const filename = event.target.id;
-            window.location.href = "editar?filename=" + filename;
+    <!-- Dialogo para subir presentación -->
+    <dialog class="modal" id="modal-upload">
+        <h2 class="modal-title">Subir Presentación</h2>
+        <form action="{% url 'slides:subir' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="file">Archivo</label>
+            <div class="modal-file">
+                <input type="file" name="file">
+            </div>
+            <div class="modal-actions">
+                <button id="btn-close-upload" type="button">Cancelar</button>
+                <button id="btn-action-upload" type="submit">Subir</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script>
+        const btnCreateSlide = document.querySelector('#btn-create-slide');
+        const modalCreate = document.querySelector('#modal-create');
+        const btnSlideCloseCreate = document.querySelector('#btn-close-create');
+
+        btnCreateSlide.addEventListener("click", () => {
+            modalCreate.showModal();
         });
-    });
 
-</script>
+        btnSlideCloseCreate.addEventListener("click", () => {
+            modalCreate.close();
+        });
+
+        const btnUploadSlide = document.querySelector('#btn-upload-slide');
+        const modalUpload = document.querySelector('#modal-upload');
+        const btnSlideCloseUpload = document.querySelector('#btn-close-upload');
+
+        btnUploadSlide.addEventListener("click", () => {
+            modalUpload.showModal();
+        });
+
+        btnSlideCloseUpload.addEventListener("click", () => {
+            modalUpload.close();
+        });
+
+        const btnEditOpenModal = document.querySelectorAll('.edit_button');
+        btnEditOpenModal.forEach(btn => {
+            btn.addEventListener("click", (event) => {
+                const filename = event.target.id;
+                window.location.href = "editar?filename=" + filename;
+            });
+        });
+    </script>
 
 </body>
 </html>

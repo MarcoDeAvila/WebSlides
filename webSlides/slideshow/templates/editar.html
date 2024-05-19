@@ -23,46 +23,29 @@
             <div class="modal-actions">
                 <button id="btn-close">Cancelar</button>
                 <button id="btn-action">Guardar</button>
-                <!-- <button onclick="EliminarSlide('{{title}}')">Eliminar</button> -->
+                <a href="{% url 'slides:eliminar' title %}" id="btn-delete">Eliminar</a>
             </div>
         </form>
     </dialog>
-<script>
-    const btnSlideCloseModal = document.querySelector('#btn-close');
-    const modalEdit = document.querySelector('#modal');
-
-    const titulo = document.querySelector('#title');
-    const contenido = document.querySelector('#content');
-    titulo.value = `{{title}}`;
-    contenido.value = `{{content}}`;
-
-    modalEdit.showModal();
-
-    btnSlideCloseModal.addEventListener("click", ()=>{ // Close Slide
-       modalEdit.close();
-    });
-
-    modalEdit.addEventListener('close', function () {
-        window.location.href = "/slides";
-    });
-
-    function EliminarSlide(filename){
-        fetch(`editar/eliminar/?filename=${filename}`, {
-            method: 'DELETE'
-        })
-        .then(response => {
-            if (response.ok) {
-                console.log("El archivo ha sido eliminado exitosamente.");
-                // Realiza cualquier otra acción necesaria después de eliminar el archivo
-            } else {
-                console.error("Error al eliminar el archivo:", response.status);
-            }
-        })
-        .catch(error => {
-            console.error("Error al eliminar el archivo:", error);
+    <script>
+        const btnSlideCloseModal = document.querySelector('#btn-close');
+        const modalEdit = document.querySelector('#modal');
+    
+        const titulo = document.querySelector('#title');
+        const contenido = document.querySelector('#content');
+        titulo.value = `{{title}}`;
+        contenido.value = `{{content}}`;
+    
+        modalEdit.showModal();
+    
+        btnSlideCloseModal.addEventListener("click", ()=>{ // Close Slide
+           modalEdit.close();
         });
-    }
-</script>
+    
+        modalEdit.addEventListener('close', function () {
+            window.location.href = "/slides";
+        });
+    </script>
 
 </body>
 </html>
