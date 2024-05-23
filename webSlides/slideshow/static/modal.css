@@ -75,6 +75,10 @@
 .modal .modal-actions{
     width: 100%;
 }
+
+.modal .modal-actions2{
+    width: 80%;
+}
 .modal .modal-actions button{
     width: 100%;
     height: 50px;
@@ -113,4 +117,13 @@
     background-color: #FA7070;
     border-radius: 5px;
     border: 1px solid #FA7070;
+}
+
+#btn-coloText{
+    text-decoration: none;
+    font-weight: bold;
+    color: #000000;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    border: 1px solid #d9d9d9;
 }
