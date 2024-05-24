@@ -1,5 +1,5 @@
 marco
-black red
+white purple
 # Hola Marco
 /Fin
 # Adios Marco

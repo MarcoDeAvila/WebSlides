@@ -90,6 +90,7 @@ def UploadSlide(request):
             # Escribir el contenido con el autor al principio
             with open(path, 'w') as destination:
                 destination.write(author + '\n')
+                destination.write('black red\n')
                 destination.write(file_content)
 
         return redirect('slides:home')
