@@ -20,19 +20,24 @@
 
     <script>
         const modal = document.querySelector('#modal')
+
         let currentSlide = 1;
         const totalSlides = {{slides|length}}
 
         modal.showModal();
         HideSlides();
 
+        modal.classList.add('{{color}}');
+        modal.classList.add('{{font}}');
+        
 
-
+        // Oculta las slides a excepcion de la primera.
         function HideSlides(){
             for(var i = 2; i <= totalSlides; i++){
                 document.getElementById("slide"+i).style.display = "none";
             }
         }
+        // Avanza a la slide siguiente
         function ShowNextSlide(){
             if(currentSlide < totalSlides){
                 currentSlide += 1; 
@@ -42,6 +47,7 @@
                 document.getElementById("slide"+currentSlide).style.display = "block";
             }
         }
+        // Regresa la slide anterior
         function ShowPreviousSlide(){
             if(currentSlide > 1){
                 currentSlide -= 1; 
@@ -51,7 +57,8 @@
                 document.getElementById("slide"+currentSlide).style.display = "block";
             }
         }
-
+        
+        // Entra por teclado
         document.addEventListener('keydown', function(event){
             if(event.keyCode === 39){ // Flecha derecha
                 ShowNextSlide();
@@ -59,7 +66,8 @@
                 ShowPreviousSlide();
             }
         });
-
+        
+        // Regresa al home cuando se cierra la presentacion.
         modal.addEventListener('close', function () {
             window.location.href = "/slides";
         });

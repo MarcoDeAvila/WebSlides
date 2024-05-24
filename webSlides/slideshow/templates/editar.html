@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static '/modal.css' %}">
+    <link rel="stylesheet" href="{% static '/color-style.css' %}">
+    <script src="{% static '/color-picker.js' %}"></script>
     <title>WebSlides</title>
 </head>
 <body>
@@ -17,8 +19,26 @@
                 {{edit.title}}
             </div>
 
-            <div class="modal-actions2">
-                <button id="btn-coloText" >Selecciona un color de texto</button>
+            <div class="picker-color">
+                <div class="font">
+                    <p>Selecciona un color de letra</p>
+                    <ul>
+                        <li class="color-font" id="black"></li>
+                        <li class="color-font" id="white"></li>
+                    </ul>
+                </div> 
+                <div class="color">
+                    <p>Selecciona un color de fondo</p>
+                    <ul>
+                        <li class="color-item" id="red"></li>
+                        <li class="color-item" id="green"></li>
+                        <li class="color-item" id="blue"></li>
+                        <li class="color-item" id="yellow"></li>
+                        <li class="color-item" id="purple"></li>
+                    </ul>
+                </div>                
+                <input type="hidden" name="font" id="selected-font" value="{{font}}">
+                <input type="hidden" name="color" id="selected-color" value="{{color}}">
             </div>
 
             <label for="">Contenido</label>
@@ -32,6 +52,7 @@
             </div>
         </form>
     </dialog>
+    
     <script>
         const btnSlideCloseModal = document.querySelector('#btn-close');
         const modalEdit = document.querySelector('#modal');
@@ -51,6 +72,5 @@
             window.location.href = "/slides";
         });
     </script>
-
 </body>
 </html>

@@ -23,8 +23,8 @@ def ShowSlides(request):
             path = os.path.join(directorio, filename)
             presentacion_nombre = filename.replace('.txt', '')
             with open(path, 'r') as file:
-                primer_linea = file.readline().strip()
-                autores.append(primer_linea)
+                autor = file.readline().strip()
+                autores.append(autor)
             presentaciones.append(presentacion_nombre)
 
     is_admin = request.user.is_superuser
@@ -42,6 +42,8 @@ def CreateSlide(request):
     if request.method == 'POST':
         title = request.POST.get('title', 'Untitled')
         content = request.POST.get('content', '')
+        font = request.POST.get('font', '')
+        color = request.POST.get('color', '')
         author = request.user.username if request.user.is_authenticated else 'Anonymous'
 
         # Asegurarse de que el directorio existe
@@ -53,9 +55,10 @@ def CreateSlide(request):
         filename = f"{title}.txt"
         path = os.path.join(directory, filename)
 
-        # Guardar el contenido como archivo de texto
+        # Guardar el metadatos y contenido como archivo de texto
         with open(path, 'w') as SlideFile:
             SlideFile.write(author + '\n')
+            SlideFile.write(font + ' ' + color + '\n')
             SlideFile.write(content)
 
         return redirect('slides:home')
@@ -98,8 +101,13 @@ def Presentacion(request, filename):
     with open(path, 'r') as file:
         lines = file.readlines()
 
-    # Excluir la primera línea que contiene el nombre de usuario
-    content = ''.join(lines[1:])
+    # Almacenar los metadatos(autor y color) de la presentacion
+    author = lines[0].strip()
+    colors = lines[1].strip().split(" ") 
+    font = colors[0];
+    color = colors[1];
+    # Omite metadatos
+    content = ''.join(lines[2:])
 
     slides = content.split("/Fin")
 
@@ -107,7 +115,11 @@ def Presentacion(request, filename):
     for slide in slides:
         slidesMD.append(ConvertToMD(slide))
 
-    return render(request, 'temporal.html', {'slides': slidesMD})
+    return render(request, 'temporal.html', {
+        'slides': slidesMD,
+        'font': font,
+        'color': color,
+    })
 
 
 def ConvertToMD(content):
@@ -119,8 +131,17 @@ def ConvertToMD(content):
 def Editar(request):
     filename = request.GET.get('filename', None)
     path = f'Slidefiles/{filename}.txt'
-    
+
+    with open(path, 'r') as file:
+        lines = file.readlines()
+
+    current_colors = lines[1].strip().split(" ")
+    font = current_colors[0];
+    color = current_colors[1];
+    content = ''.join(lines[2:])
+
     if request.method == 'POST':
+        # Cambio del titulo
         newTitle = request.POST['title']
         if newTitle != filename:
             new_path = f'Slidefiles/{newTitle}.txt'
@@ -128,23 +149,35 @@ def Editar(request):
         else:
             new_path = path
 
-        content = request.POST['content']
+        # Cambio del color
+        newFont = request.POST.get('font', '')
+        newColor = request.POST.get('color', '')
+        
+        if font != newFont:
+            font = newFont
+        
+        if color != newColor:
+            color = newColor
+
+        # Cambio del contenido
+        new_content = request.POST['content']
         author = request.user.username
 
-        new_content = f"{author}\n{content}"
-
         with open(new_path, 'w') as file:
+            file.write(author + '\n')
+            file.write(font + " " + color + '\n')
             file.write(new_content)
+        
         return redirect('slides:home')
     else:
-        with open(path, 'r') as file:
-            lines = file.readlines()[1:]
-            content = ''.join(lines)
+        content = '\n'.join(line.strip() for line in content.split('\n') if line.strip())
 
         return render(request, 'editar.html', {
             'edit': Edit_Slide_Form(),
             'content': content, 
-            'title': filename
+            'title': filename,
+            'font': font,
+            'color': color,
         })
     
 def Eliminar(request, filename):
