@@ -11,6 +11,13 @@
     <title>WebSlides</title>
 </head>
 <body>
+    {% if messages %}
+        {% for msg in messages %}
+            <div class="alert {{message.tags}} " role="alert">
+            <strong>{{msg}}</strong> 
+        </div>
+        {% endfor%} 
+    {%endif%}
     <header>
         <a href="">
             <h2>WebSlides</h2>

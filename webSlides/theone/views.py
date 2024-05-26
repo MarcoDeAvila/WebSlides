@@ -4,6 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from .forms import SignIn_User, SignUp_User
 from slideshow.views import home
+from django.contrib import messages
 
 # Create your views here.
 
@@ -53,6 +54,7 @@ def signIn(request):
             })
         else:
             login(request, user)
+            messages.success(request, 'Presentación creada con éxito')
             return redirect('slides:home')
 
 
