@@ -5,6 +5,7 @@ import os
 import markdown
 from django.http import JsonResponse
 from django.utils.text import slugify
+from django.contrib import messages
 
 # Create your views here.
 
@@ -60,7 +61,7 @@ def CreateSlide(request):
             SlideFile.write(author + '\n')
             SlideFile.write(font + ' ' + color + '\n')
             SlideFile.write(content)
-
+        messages.success(request, 'Presentación creada con éxito')
         return redirect('slides:home')
     else:
         return render(request, 'nueva.html')
